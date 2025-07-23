@@ -1,12 +1,12 @@
 import React from "react";
-import { cn } from "@/utils/cn";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
 import Button from "@/components/atoms/Button";
-import ApperIcon from "@/components/ApperIcon";
-import { toast } from "react-toastify";
-
+import { resumeService } from "@/services/api/resumeService";
+import { cn } from "@/utils/cn";
 const ResumeCard = ({ resume, className, onDelete, onSetDefault, onViewProfile, isDefault = false }) => {
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this resume?")) {
@@ -18,12 +18,16 @@ const ResumeCard = ({ resume, className, onDelete, onSetDefault, onViewProfile, 
   const handleSetDefault = () => {
     onSetDefault?.(resume.Id);
     toast.success("Default resume updated");
-  };
-
-  const handleDownload = () => {
-    // Simulate download
-    toast.info("Download functionality would be implemented here");
 };
+
+  const handleDownload = async () => {
+    try {
+      await resumeService.download(resume.Id);
+      toast.success("Resume download started");
+    } catch (error) {
+      toast.error("Failed to download resume");
+    }
+  };
 
   const handleViewProfile = () => {
     onViewProfile?.(resume.Id);
@@ -49,9 +53,8 @@ const ResumeCard = ({ resume, className, onDelete, onSetDefault, onViewProfile, 
           <Badge variant="accent">Default</Badge>
         )}
       </div>
-
-      <div className="flex justify-between items-center">
-<div className="flex gap-2">
+<div className="flex justify-between items-center">
+        <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={handleDownload}>
             <ApperIcon name="Download" className="w-4 h-4 mr-1" />
             Download
