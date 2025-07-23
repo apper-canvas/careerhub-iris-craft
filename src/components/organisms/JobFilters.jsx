@@ -54,10 +54,18 @@ const JobFilters = ({ filters, onFiltersChange, className }) => {
       jobType: "",
       salary: "",
     });
+};
+
+  const handleCreateAlert = () => {
+    // Navigate to job alerts page with current filters as query params
+    const searchParams = new URLSearchParams();
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value) searchParams.append(key, value);
+    });
+    window.location.href = `/job-alerts?${searchParams.toString()}`;
   };
 
   const hasActiveFilters = Object.values(filters).some(value => value !== "");
-
   return (
     <Card className={cn("p-6", className)}>
       <div className="flex items-center justify-between mb-6">
@@ -71,8 +79,17 @@ const JobFilters = ({ filters, onFiltersChange, className }) => {
           >
             <ApperIcon name="X" className="w-4 h-4 mr-1" />
             Clear All
-          </Button>
+</Button>
         )}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => handleCreateAlert()}
+          className="text-primary-600 hover:text-primary-700 border-primary-200 hover:border-primary-300"
+        >
+          <ApperIcon name="Bell" className="w-4 h-4 mr-1" />
+          Create Alert
+        </Button>
       </div>
 
       <div className="space-y-6">

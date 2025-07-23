@@ -98,7 +98,55 @@ export const jobService = {
     if (index === -1) {
       throw new Error("Job not found");
     }
-    const deletedJob = jobs.splice(index, 1)[0];
+const deletedJob = jobs.splice(index, 1)[0];
     return { ...deletedJob };
+  },
+
+  async getMatchingJobs(alertCriteria) {
+    await simulateDelay();
+    let matchingJobs = [...jobs];
+    
+    // Apply alert criteria filters
+    if (alertCriteria.title) {
+      const titleTerm = alertCriteria.title.toLowerCase();
+      matchingJobs = matchingJobs.filter(job => 
+        job.title.toLowerCase().includes(titleTerm)
+      );
+    }
+    
+    if (alertCriteria.location) {
+      matchingJobs = matchingJobs.filter(job => 
+        job.location.toLowerCase().includes(alertCriteria.location.toLowerCase())
+      );
+    }
+    
+    if (alertCriteria.industry) {
+      matchingJobs = matchingJobs.filter(job => 
+        job.industry === alertCriteria.industry
+      );
+    }
+    
+    if (alertCriteria.jobType) {
+      matchingJobs = matchingJobs.filter(job => 
+        job.type.toLowerCase().replace(" ", "-") === alertCriteria.jobType
+      );
+    }
+    
+    if (alertCriteria.salary) {
+      const [min, max] = alertCriteria.salary.split("-").map(s => parseInt(s.replace("+", "")));
+      matchingJobs = matchingJobs.filter(job => {
+        if (!job.salary || !job.salary.min) return false;
+        if (max) {
+          return job.salary.min >= min && job.salary.min <= max;
+        } else {
+          return job.salary.min >= min;
+        }
+      });
+    }
+    
+    // Sort by posted date (newest first)
+    matchingJobs.sort((a, b) => new Date(b.posted) - new Date(a.posted));
+    
+    return matchingJobs;
   }
 };

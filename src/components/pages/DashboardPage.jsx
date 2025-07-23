@@ -132,6 +132,18 @@ const DashboardPage = () => {
                 <p className="text-sm text-gray-600">Resumes</p>
               </div>
             </div>
+</Card>
+
+          <Card className="p-6 hover:scale-105 transition-all duration-300">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg flex items-center justify-center mr-4">
+                <ApperIcon name="Bell" className="w-6 h-6 text-yellow-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-900">3</p>
+                <p className="text-sm text-gray-600">Job Alerts</p>
+              </div>
+            </div>
           </Card>
 
           <Card className="p-6 hover:scale-105 transition-all duration-300">
@@ -254,6 +266,16 @@ const DashboardPage = () => {
                 >
                   <ApperIcon name="FileText" className="w-5 h-5 mr-3" />
                   Track Applications
+</Button>
+                
+                <Button
+                  variant="outline"
+                  className="w-full justify-start"
+                  onClick={() => navigate("/job-alerts")}
+                  size="lg"
+                >
+                  <ApperIcon name="Bell" className="w-5 h-5 mr-3" />
+                  Manage Job Alerts
                 </Button>
               </div>
             </Card>

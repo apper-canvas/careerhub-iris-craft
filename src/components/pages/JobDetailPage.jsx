@@ -86,6 +86,18 @@ const JobDetailPage = () => {
     } finally {
       setApplying(false);
     }
+};
+
+  const handleCreateAlert = () => {
+    // Navigate to job alerts page with job details as criteria
+    const searchParams = new URLSearchParams({
+      title: job.title,
+      company: job.company,
+      location: job.location,
+      industry: job.industry,
+      jobType: job.type.toLowerCase().replace(" ", "-")
+    });
+    navigate(`/job-alerts?${searchParams.toString()}`);
   };
 
   const formatSalary = (salary) => {
@@ -305,15 +317,25 @@ const JobDetailPage = () => {
                       )}
                     </Button>
                   )}
+<div className="space-y-3">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => navigate("/resumes")}
+                    >
+                      <ApperIcon name="Upload" className="w-4 h-4 mr-2" />
+                      Manage Resumes
+                    </Button>
 
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => navigate("/resumes")}
-                  >
-                    <ApperIcon name="Upload" className="w-4 h-4 mr-2" />
-                    Manage Resumes
-                  </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => handleCreateAlert()}
+                    >
+                      <ApperIcon name="Bell" className="w-4 h-4 mr-2" />
+                      Set Job Alert
+                    </Button>
+                  </div>
                 </Card>
               </motion.div>
 

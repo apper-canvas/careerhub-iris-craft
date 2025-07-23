@@ -12,8 +12,9 @@ const Header = () => {
   const navigationItems = [
     { name: "Browse Jobs", href: "/jobs", icon: "Search" },
     { name: "My Dashboard", href: "/dashboard", icon: "LayoutDashboard" },
-    { name: "Saved Jobs", href: "/saved-jobs", icon: "Heart" },
+{ name: "Saved Jobs", href: "/saved-jobs", icon: "Heart" },
     { name: "Applications", href: "/applications", icon: "FileText" },
+    { name: "Job Alerts", href: "/job-alerts", icon: "Bell" },
   ];
 
   const isActivePath = (path) => {
