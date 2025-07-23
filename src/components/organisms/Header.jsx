@@ -56,25 +56,7 @@ const Header = () => {
                 <span>{item.name}</span>
               </Link>
             ))}
-          </nav>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate("/resumes")}
-            >
-              <ApperIcon name="Upload" className="w-4 h-4 mr-2" />
-              Upload Resume
-            </Button>
-            <Button
-              size="sm"
-              onClick={() => navigate("/jobs")}
-            >
-              Find Jobs
-            </Button>
-          </div>
+</nav>
 
           {/* Mobile Menu Button */}
           <button
@@ -108,29 +90,7 @@ const Header = () => {
                 <ApperIcon name={item.icon} className="w-5 h-5" />
                 <span>{item.name}</span>
               </Link>
-            ))}
-            <div className="pt-4 space-y-2">
-              <Button
-                variant="outline"
-                className="w-full justify-start"
-                onClick={() => {
-                  navigate("/resumes");
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                <ApperIcon name="Upload" className="w-4 h-4 mr-2" />
-                Upload Resume
-              </Button>
-              <Button
-                className="w-full justify-start"
-                onClick={() => {
-                  navigate("/jobs");
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                Find Jobs
-              </Button>
-            </div>
+))}
           </div>
         </div>
       )}
