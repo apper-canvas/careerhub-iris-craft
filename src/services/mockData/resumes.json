@@ -1,18 +1,87 @@
 [
-  {
+{
     "Id": 1,
     "userId": "user1",
     "filename": "John_Doe_Resume_2024.pdf",
     "uploadDate": "2024-01-10T10:00:00Z",
     "fileUrl": "/uploads/resume_1.pdf",
-    "isDefault": true
+    "isDefault": true,
+    "profile": {
+      "personalInfo": {
+        "name": "John Doe",
+        "title": "Senior Software Engineer",
+        "email": "john.doe@email.com",
+        "phone": "(555) 123-4567",
+        "location": "San Francisco, CA",
+        "linkedin": "linkedin.com/in/johndoe"
+      },
+      "experience": [
+        {
+          "position": "Senior Software Engineer",
+          "company": "Tech Corp",
+          "period": "2021 - Present",
+          "description": "Led development of scalable web applications using React and Node.js. Mentored junior developers and improved code quality through comprehensive code reviews."
+        },
+        {
+          "position": "Software Engineer",
+          "company": "StartupXYZ",
+          "period": "2019 - 2021",
+          "description": "Developed full-stack applications using modern JavaScript frameworks. Collaborated with cross-functional teams to deliver high-quality products."
+        }
+      ],
+      "skills": ["React", "Node.js", "JavaScript", "TypeScript", "Python", "AWS", "Docker", "MongoDB"],
+      "education": [
+        {
+          "degree": "Bachelor of Science in Computer Science",
+          "institution": "University of California, Berkeley",
+          "year": "2019"
+        }
+      ]
+    }
   },
-  {
+{
     "Id": 2,
     "userId": "user1",
     "filename": "John_Doe_Resume_Technical.pdf",
     "uploadDate": "2024-01-12T14:30:00Z",
     "fileUrl": "/uploads/resume_2.pdf",
-    "isDefault": false
+    "isDefault": false,
+    "profile": {
+      "personalInfo": {
+        "name": "John Doe",
+        "title": "Full Stack Developer",
+        "email": "john.doe@email.com",
+        "phone": "(555) 123-4567",
+        "location": "San Francisco, CA",
+        "linkedin": "linkedin.com/in/johndoe"
+      },
+      "experience": [
+        {
+          "position": "Full Stack Developer",
+          "company": "Innovation Labs",
+          "period": "2022 - Present",
+          "description": "Built and maintained complex web applications using React, Vue.js, and Django. Optimized database performance and implemented CI/CD pipelines."
+        },
+        {
+          "position": "Frontend Developer",
+          "company": "Digital Agency",
+          "period": "2020 - 2022",
+          "description": "Created responsive web interfaces and improved user experience across multiple client projects. Specialized in modern JavaScript frameworks."
+        }
+      ],
+      "skills": ["React", "Vue.js", "Django", "PostgreSQL", "Redis", "GraphQL", "Jest", "Cypress"],
+      "education": [
+        {
+          "degree": "Bachelor of Science in Computer Science",
+          "institution": "University of California, Berkeley",
+          "year": "2019"
+        },
+        {
+          "degree": "Full Stack Web Development Certificate",
+          "institution": "General Assembly",
+          "year": "2020"
+        }
+      ]
+    }
   }
 ]

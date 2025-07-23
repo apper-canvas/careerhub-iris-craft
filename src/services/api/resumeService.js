@@ -71,6 +71,18 @@ export const resumeService = {
     }
     
     resumes[index].isDefault = true;
-    return { ...resumes[index] };
+return { ...resumes[index] };
+  },
+
+  async getProfile(id) {
+    await simulateDelay();
+    const resume = resumes.find(r => r.Id === parseInt(id));
+    if (!resume) {
+      throw new Error("Resume not found");
+    }
+    if (!resume.profile) {
+      throw new Error("Profile data not available for this resume");
+    }
+    return { ...resume.profile };
   }
 };

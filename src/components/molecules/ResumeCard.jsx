@@ -7,7 +7,7 @@ import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 import { toast } from "react-toastify";
 
-const ResumeCard = ({ resume, className, onDelete, onSetDefault, isDefault = false }) => {
+const ResumeCard = ({ resume, className, onDelete, onSetDefault, onViewProfile, isDefault = false }) => {
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this resume?")) {
       onDelete?.(resume.Id);
@@ -23,6 +23,10 @@ const ResumeCard = ({ resume, className, onDelete, onSetDefault, isDefault = fal
   const handleDownload = () => {
     // Simulate download
     toast.info("Download functionality would be implemented here");
+};
+
+  const handleViewProfile = () => {
+    onViewProfile?.(resume.Id);
   };
 
   return (
@@ -47,10 +51,14 @@ const ResumeCard = ({ resume, className, onDelete, onSetDefault, isDefault = fal
       </div>
 
       <div className="flex justify-between items-center">
-        <div className="flex gap-2">
+<div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={handleDownload}>
             <ApperIcon name="Download" className="w-4 h-4 mr-1" />
             Download
+          </Button>
+          <Button variant="ghost" size="sm" onClick={handleViewProfile}>
+            <ApperIcon name="User" className="w-4 h-4 mr-1" />
+            View Profile
           </Button>
           {!isDefault && (
             <Button variant="ghost" size="sm" onClick={handleSetDefault}>
