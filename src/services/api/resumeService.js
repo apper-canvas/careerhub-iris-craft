@@ -31,15 +31,27 @@ export const resumeService = {
         return [];
       }
 
-      return response.data?.map(resume => ({
-        Id: resume.Id,
-        userId: resume.user_id_c?.Id || resume.user_id_c,
-        filename: resume.filename_c || resume.Name,
-        uploadDate: resume.uploadDate_c,
-        fileUrl: resume.fileUrl_c,
-        isDefault: resume.isDefault_c,
-        profile: resume.profile_c ? JSON.parse(resume.profile_c) : null
-      })) || [];
+return response.data?.map(resume => {
+        let profile = null;
+        if (resume.profile_c && resume.profile_c.trim() !== '') {
+          try {
+            profile = JSON.parse(resume.profile_c);
+          } catch (error) {
+            console.error(`Invalid JSON in profile_c for resume ${resume.Id}:`, error.message);
+            profile = null;
+          }
+        }
+        
+        return {
+          Id: resume.Id,
+          userId: resume.user_id_c?.Id || resume.user_id_c,
+          filename: resume.filename_c || resume.Name,
+          uploadDate: resume.uploadDate_c,
+          fileUrl: resume.fileUrl_c,
+          isDefault: resume.isDefault_c,
+          profile: profile
+        };
+      }) || [];
     } catch (error) {
       if (error?.response?.data?.message) {
         console.error("Error fetching resumes:", error?.response?.data?.message);
@@ -78,7 +90,17 @@ export const resumeService = {
         throw new Error("Resume not found");
       }
 
-      const resume = response.data;
+const resume = response.data;
+      let profile = null;
+      if (resume.profile_c && resume.profile_c.trim() !== '') {
+        try {
+          profile = JSON.parse(resume.profile_c);
+        } catch (error) {
+          console.error(`Invalid JSON in profile_c for resume ${resume.Id}:`, error.message);
+          profile = null;
+        }
+      }
+      
       return {
         Id: resume.Id,
         userId: resume.user_id_c?.Id || resume.user_id_c,
@@ -86,7 +108,7 @@ export const resumeService = {
         uploadDate: resume.uploadDate_c,
         fileUrl: resume.fileUrl_c,
         isDefault: resume.isDefault_c,
-        profile: resume.profile_c ? JSON.parse(resume.profile_c) : null
+        profile: profile
       };
     } catch (error) {
       if (error?.response?.data?.message) {
@@ -283,20 +305,33 @@ export const resumeService = {
     }
   },
 
-  async getProfile(id) {
+async getProfile(id) {
     try {
       const resume = await this.getById(id);
+      
+      // Check if profile exists and has required structure
       if (!resume.profile) {
         throw new Error("Profile data not available for this resume");
       }
+      
+      // Validate that profile has required nested properties
+      if (!resume.profile.personalInfo || !resume.profile.personalInfo.name) {
+        throw new Error("Profile data is incomplete - missing personal information");
+      }
+      
       return resume.profile;
     } catch (error) {
-      if (error?.response?.data?.message) {
+      if (error.message.includes("Profile data")) {
+        // Re-throw profile-specific errors as-is
+        console.error("Profile validation error:", error.message);
+        throw error;
+      } else if (error?.response?.data?.message) {
         console.error("Error fetching resume profile:", error?.response?.data?.message);
+        throw new Error("Failed to fetch resume data");
       } else {
-        console.error(error.message);
+        console.error("Unexpected error in getProfile:", error.message);
+        throw new Error("Profile data not available for this resume");
       }
-      throw error;
     }
   },
 
