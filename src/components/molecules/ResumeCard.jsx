@@ -44,8 +44,8 @@ const ResumeCard = ({ resume, className, onDelete, onSetDefault, onViewProfile, 
             <h3 className="text-lg font-semibold text-gray-900 mb-1">
               {resume.filename}
             </h3>
-            <p className="text-sm text-gray-500">
-              Uploaded {format(new Date(resume.uploadDate), "MMM d, yyyy")}
+<p className="text-sm text-gray-500">
+              Uploaded {resume.uploadDate_c ? format(new Date(resume.uploadDate_c), "MMM d, yyyy") : "Date not available"}
             </p>
           </div>
         </div>
